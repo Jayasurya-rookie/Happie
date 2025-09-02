@@ -266,9 +266,10 @@
                 Your Presence🌻
               </h3>
               <p class="text-gray-700">
-                Your existence always exites me to live 💌 Say thanks to your
-                parents to bring u to this world babe😘
-              </p>
+                Your existence always exites me to live 💌 
+                My soul took 23 years to found u senpai🤧 
+                Say thanks to your parents to bring u to this world babe😘
+            </p>
             </div>
             <div class="reason-card">
               <div class="emoji text-3xl">😤</div>
@@ -279,7 +280,7 @@
               <div class="emoji text-3xl">🥀</div>
               <h3 class="text-xl font-bold mb-2 text-pink-600">Your Absence</h3>
               <p class="text-gray-700">
-                The days feel longer when your smile is far, Nights fall quiet
+                The days feel longer when your smile😊 is far, Nights fall quiet
                 without ur familiar star. My laughter pauses waiting for urs to
                 appear(*-*)
               </p>
@@ -292,7 +293,7 @@
         <div class="step" id="step4">
           <div class="emoji">📸</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">
-            Remember When...
+            Remember me always...
           </h2>
           <div
             class="bg-gradient-to-r from-pink-200 to-rose-200 rounded-xl p-8 mb-8 flex flex-col justify-center items-center"
@@ -335,6 +336,10 @@
             Made with ❤️ just for you. I hope u like it😉
           </p>
         </div>
+        <audio id="final-audio">
+          <source src="finalsong.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
       </div>
     </div>
 
@@ -654,6 +659,10 @@
 
       // Confetti button
       document.getElementById("confetti-btn").addEventListener("click", () => {
+        //for audio play back
+        const finalAudio = document.getElementById("final-audio");
+        finalAudio.volume = 0.5; // set volume (0.0–1.0)
+        finalAudio.play();
         // Standard confetti
         confetti({
           particleCount: 150,
