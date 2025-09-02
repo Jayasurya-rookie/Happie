@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For Someone Special ❤️</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- <link rel="stylesheet" href="index.css" /> -->
     <style>
       body {
         margin: 0;
@@ -36,6 +32,7 @@
         align-items: center;
         padding: 20px;
         box-sizing: border-box;
+        transition: opacity 0.6s ease; /* smooth fade */
       }
 
       .step {
@@ -58,6 +55,26 @@
         opacity: 1;
         transform: translateY(0);
         pointer-events: all;
+      }
+      /* Background video wrapper (behind your step cards) */
+      #bg-video-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 2; /* behind #content (z-index:10), above canvas (z-index:1) */
+        overflow: hidden;
+        display: none; /* shown only during Step 4 */
+        background: #000; /* optional: hides gaps while rotating */
+        pointer-events: none; /* clicks go to your UI, not the video */
+      }
+
+      /* The video itself — we rotate 90° and scale to fully cover */
+      #bg-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center center;
+        /* transform is set by JS: translate(-50%,-50%) rotate(90deg) scale(...) */
+        will-change: transform;
       }
 
       .btn {
@@ -165,9 +182,44 @@
         z-index: 1;
       }
     </style>
+    <!-- External CSS -->
+    <title>For Special ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   </head>
 
   <body>
+    <!-- Rotated background video -->
+    <div id="bg-video-wrap">
+      <video id="bg-video" loop playsinline preload="auto">
+        <source src="your name.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+
+    <!-- <div>
+      <audio id="bg-music" autoplay loop>
+        <source src="your name.MP3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <script>
+      const music = document.getElementById("bg-music");
+
+      // Set initial volume
+      music.volume = 0.3; // 30%
+
+      // Safety: if autoplay is blocked, start when user clicks anywhere
+      document.addEventListener("click", () => {
+        if (music.paused) {
+          music.play();
+        }
+      });
+    </script> -->
+
     <div id="app">
       <div id="canvas-container"></div>
 
@@ -180,24 +232,24 @@
         <div class="step active" id="step1">
           <div class="emoji heart-beat">❤️</div>
           <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">
-            Oi Excess Beauty╰(*°▽°*)╯
+            Oii Excess Beauty╰(*°▽°*)╯
           </h1>
           <p class="text-xl text-gray-700 mb-8">
             I made something little special for you...
           </p>
-          <button class="btn" id="start-btn">Touch Me Senpai✌️💖</button>
+          <button class="btn" id="start-btn">Click here Senpai✌️💖</button>
         </div>
 
         <!-- Step 2: Birthday Message -->
         <div class="step" id="step2">
           <div class="emoji">🎉</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">
-            Sep 3🗓️
+            The origin of Akanksha Princess on Sep 3
           </h2>
           <p class="text-lg text-gray-700 mb-6">
             On your special day, I want you to know how amazing you are. Your
-            smile brightens my world, your laughter is my favorite melody, and
-            your presence makes every moment magical.
+            smile brighter than stars and your presence makes every moment
+            magical.
           </p>
           <button class="btn" id="next-btn-2">What makes you special?</button>
         </div>
@@ -211,24 +263,25 @@
             <div class="reason-card">
               <div class="emoji text-3xl">(●'◡'●)</div>
               <h3 class="text-xl font-bold mb-2 text-pink-600">
-                Your Kindness
+                Your Presence🌻
               </h3>
               <p class="text-gray-700">
-                Me wanna thanks to your parents to bring u to this world babe😘
+                Your existence always exites me to live 💌 Say thanks to your
+                parents to bring u to this world babe😘
               </p>
             </div>
             <div class="reason-card">
               <div class="emoji text-3xl">😤</div>
               <h3 class="text-xl font-bold mb-2 text-pink-600">Your Hmphh😾</h3>
-              <p class="text-gray-700">
-                It lights up every room you enter and stays in my mind all day.
-              </p>
+              <p class="text-gray-700">😶‍🌫️😶‍🌫️🤧 meow meow</p>
             </div>
             <div class="reason-card">
-              <div class="emoji text-3xl">🌟</div>
-              <h3 class="text-xl font-bold mb-2 text-pink-600">Your Spirit</h3>
+              <div class="emoji text-3xl">🥀</div>
+              <h3 class="text-xl font-bold mb-2 text-pink-600">Your Absence</h3>
               <p class="text-gray-700">
-                Your passion and energy are contagious. You make life exciting!
+                The days feel longer when your smile is far, Nights fall quiet
+                without ur familiar star. My laughter pauses waiting for urs to
+                appear(*-*)
               </p>
             </div>
           </div>
@@ -244,35 +297,43 @@
           <div
             class="bg-gradient-to-r from-pink-200 to-rose-200 rounded-xl p-8 mb-8 flex flex-col justify-center items-center"
           >
-            <img src="crush.webp" height="200" width="200" alt="" srcset="" />
+            <img
+              src="your name.jpg"
+              height="200"
+              width="200"
+              alt=""
+              srcset=""
+            />
             <p class="text-lg text-gray-700 italic mt-2">
               (Imagine our favorite memory together here)
             </p>
           </div>
           <p class="text-lg text-gray-700 mb-6">
-            Every moment with you becomes a cherished memory. Whether we're
+            Every moment with you becomes a cherished🍒🌸 memory. Whether we're
             laughing together or just enjoying the silence, time with you is
             always special.
           </p>
-          <button class="btn" id="next-btn-4">One Last Thing</button>
+          <button class="btn" id="next-btn-4">Touch me</button>
         </div>
 
         <!-- Step 5: Final Wish -->
         <div class="step" id="step5">
           <div class="emoji">🎂</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">
-            My Birthday Wish For You
+            My Small Presence (≧▽≦)
           </h2>
           <p class="text-lg text-gray-700 mb-8">
-            May your year be filled with joy, laughter, and dreams come true.
-            May you always know how special you are to me and to everyone lucky
-            enough to know you.
+            May your heart be filled with joy, laughter, and dreams come true.
+            May you always know how special you are to me and i feel lucky to
+            have u babe✌️💖
           </p>
           <p class="text-xl font-semibold text-pink-600 mb-8">
-            Happy Birthday,my babe😘Akhansha🎂! ❤️
+            Happie Birthday,my babe😘Akhansha🎂! ❤️
           </p>
-          <button class="btn" id="confetti-btn">Celebrate!</button>
-          <p class="mt-8 text-gray-500">Made with ❤️ just for you</p>
+          <button class="btn" id="confetti-btn">click!</button>
+          <p class="mt-8 text-gray-500">
+            Made with ❤️ just for you. I hope u like it😉
+          </p>
         </div>
       </div>
     </div>
@@ -430,6 +491,118 @@
       });
 
       // Step Navigation
+      // ===== Rotated background video controller =====
+      const bgVideoWrap = document.getElementById("bg-video-wrap");
+      const bgVideo = document.getElementById("bg-video");
+
+      /**
+       * Fit a 90°-rotated video to cover the viewport without letterboxing.
+       * After rotation, video effective size becomes (videoHeight x scale, videoWidth x scale).
+       * Choose scale s so it covers the viewport (vw x vh).
+       */
+      function fitRotatedVideo() {
+        if (!bgVideo.videoWidth || !bgVideo.videoHeight) return; // wait for metadata
+
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        const iw = bgVideo.videoWidth; // intrinsic width
+        const ih = bgVideo.videoHeight; // intrinsic height
+
+        // After 90° rotation: effective width = ih*s, height = iw*s
+        const s = Math.max(vw / ih, vh / iw);
+
+        bgVideo.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${s})`;
+      }
+
+      // Recalculate when metadata is available and on resize/orientation change
+      bgVideo.addEventListener("loadedmetadata", fitRotatedVideo);
+      window.addEventListener("resize", fitRotatedVideo);
+      window.addEventListener("orientationchange", fitRotatedVideo);
+
+      // Optional: set default volume
+      bgVideo.volume = 0.7;
+
+      // ===== Replace your Step 3 & Step 4 button handlers with these =====
+      // Show video with sound when clicking "A Little Surprise"
+      document.getElementById("next-btn-3").addEventListener("click", () => {
+        // go to Step 4 first (so UI updates immediately)
+        currentStep = 4;
+        showStep(currentStep);
+
+        // show + play video
+        bgVideoWrap.style.display = "block";
+        fitRotatedVideo(); // size correctly before play
+        bgVideo.muted = false; // ensure sound
+        bgVideo.currentTime = 0; // start from beginning (optional)
+        bgVideo.play().catch((err) => {
+          // if a browser blocks, user has already clicked so this should succeed
+          console.log("Video play blocked:", err);
+        });
+      });
+
+      // Hide/stop video when clicking "One Last Thing"
+      document.getElementById("next-btn-4").addEventListener("click", () => {
+        // stop + hide video
+        bgVideo.pause();
+        bgVideo.currentTime = 0;
+        bgVideoWrap.style.display = "none";
+
+        // proceed to Step 5
+        currentStep = 5;
+        showStep(currentStep);
+      });
+      // Show video with sound + fade step container
+      document.getElementById("next-btn-3").addEventListener("click", () => {
+        currentStep = 4;
+        showStep(currentStep);
+
+        // Show + play video
+        bgVideoWrap.style.display = "block";
+        fitRotatedVideo();
+        bgVideo.muted = false;
+        bgVideo.currentTime = 0;
+        bgVideo.play().catch((err) => console.log("Video play blocked:", err));
+
+        // Fade out step container
+        document.getElementById("content").style.opacity = "0.3";
+      });
+
+      // Hide/stop video + restore opacity
+      document.getElementById("next-btn-4").addEventListener("click", () => {
+        bgVideo.pause();
+        bgVideo.currentTime = 0;
+        bgVideoWrap.style.display = "none";
+
+        // Restore opacity
+        document.getElementById("content").style.opacity = "1";
+
+        // Move to Step 5
+        currentStep = 5;
+        showStep(currentStep);
+      });
+
+      // const bgVideo = document.getElementById("bg-video");
+
+      // // Show video when clicking "A Little Surprise"
+      // document.getElementById("next-btn-3").addEventListener("click", () => {
+      //   bgVideo.style.display = "block";
+      //   bgVideo.muted = false; //enable sound
+      //   bgVideo.volume = 0.6; // adjust volume
+      //   bgVideo.play();
+      //   currentStep = 4;
+      //   showStep(currentStep);
+      // });
+
+      // // Hide video when clicking "One Last Thing"
+      // document.getElementById("next-btn-4").addEventListener("click", () => {
+      //   bgVideo.pause();
+      //   bgVideo.currentTime = 0; // reset to start
+      //   bgVideo.style.display = "none";
+      //   currentStep = 5;
+      //   showStep(currentStep);
+      // });
+
       let currentStep = 1;
       const totalSteps = 5;
 
